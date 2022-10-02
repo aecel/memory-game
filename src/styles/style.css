@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+:root {
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --gap: 24px;
+  --radius: 15px;
+  --shadow: 5px 5px rgba(0, 0, 0, 0.27);
+
+  --light-color: rgba(255, 255, 255, 0.748);
+  --main-color: rgb(6, 31, 70);
+  --dark-gray: rgb(34, 34, 34);
+  --theme-color: rgb(34, 34, 34);
+  --highlight-color: rgb(106, 46, 150);
+
+  margin: auto;
+  line-height: 1.75;
+  background-color: var(--dark-gray);
+  color: rgb(197, 197, 197);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Usual header */
+header {
+  padding: 15px;
+  padding-left: 36px;
+  padding-right: 36px;
+  background-color: #fff8ebe1;
+  color: var(--dark-gray);
+  font-weight: bold;
+  font-size: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: var(--shadow);
+  z-index: 1;
+}
+
+/* Usual footer */
+footer {
+  font-size: 10px;
+  text-align: center;
+  background-color: #1a1a1ac9;
+  color: white;
+  padding-left: var(--gap);
+  padding-right: var(--gap);
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 100px;
+  box-sizing: border-box;
+}
+
+.center-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  all: unset;
+  font-family: inherit;
+  font-weight: bold;
+  background-color: rgb(75, 75, 75);
+  border-radius: 10px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 0.7rem;
+}
+
+button:hover {
+  background-color: #313131;
+}
+
+button:active {
+  background-color: #b0b0b0;
+}
+
+.flexdiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.normal-text {
+  font-weight: 400;
+  margin: 0;
+  color: #989898;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
