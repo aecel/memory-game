@@ -1,8 +1,8 @@
 .pet-grid {
   display: grid;
-  gap: 10px;
-  height: 100%;
-  width: 100%;
+  gap: clamp(1px, 10px, 20px);
+  height: clamp(50px, 500px, 90%);
+  width: clamp(50px, 500px, 90%);
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   box-sizing: border-box;
