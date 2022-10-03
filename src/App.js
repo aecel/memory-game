@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import style from "./styles/style.css"
 import PetGrid from "./components/PetGrid.js"
 import getRandomInt from "./getRandomInt.js"
@@ -6,11 +6,12 @@ import uniqueId from "./uniqueId.js"
 import shuffleArray from "./shuffleArray"
 
 const App = () => {
-  // const [currentScore, setCurrentScore] = useState(0)
+  const [currentScore, setCurrentScore] = useState(0)
   // const [bestScore, setBestScore] = useState(0)
 
   // Setting up the grid
-  // gridLength should be even
+  // Changeable height and width
+  // As long as gridLength is even
   const height = 4
   const width = 4
   const gridLength = height * width
@@ -24,6 +25,7 @@ const App = () => {
   )
 
   // Making an array with random integer pairs
+  // with values below petImages.length
   // Something like this [4,4,9,9,2,2...]
   const getPetIntArray = () => {
     const intArray = []
@@ -49,13 +51,24 @@ const App = () => {
     initialGrid.push({
       id: uniqueId(),
       image: petImages[intArray[i]],
-      isFlipped: true,
+      isFlipped: false,
     })
   }
 
   const [grid, setGrid] = useState(initialGrid)
+  const [lastClickedCards, setLastCLickedCards] = useState([])
+  const [flipCount, setFlipCount] = useState(0)
 
-  console.log(grid)
+  const clickCard = (index, pet) => {
+    if (!grid[index].isFlipped) {
+      flipCard(index)
+      setFlipCount(flipCount + 1)
+
+      const nextClickedCards = [...lastClickedCards]
+      nextClickedCards.push(pet)
+      setLastCLickedCards(nextClickedCards)
+    }
+  }
 
   const flipCard = (index) => {
     const nextGrid = [...grid]
@@ -63,11 +76,38 @@ const App = () => {
     setGrid(nextGrid)
   }
 
+  useEffect(() => {
+    if (flipCount === 2) {
+      setFlipCount(0)
+      if (lastClickedCards[0].image === lastClickedCards[1].image) {
+        setCurrentScore(currentScore + 1)
+      } else {
+        setTimeout(() => {
+          flipCard(grid.indexOf(lastClickedCards[0]))
+          flipCard(grid.indexOf(lastClickedCards[1]))
+        }, 800)
+      }
+      setLastCLickedCards([])
+    }
+
+    console.log(currentScore)
+  }, [flipCount, lastClickedCards])
+
+  useEffect(() => {
+    if (currentScore === 8) {
+      // Congratulations blah blah
+    }
+  }, [currentScore])
+
   return (
     <div className="App">
       <header>Memory Game</header>
       <main>
-        <PetGrid grid={grid} flipCard={flipCard} />
+        <PetGrid
+          dimensions={[height, width]}
+          grid={grid}
+          clickCard={clickCard}
+        />
       </main>
       <footer>Copyright © aecel 2022</footer>
     </div>

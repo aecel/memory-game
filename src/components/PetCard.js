@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import PetCardcss from "../styles/PetCard.css"
 
 const PetCard = ({ image, isFlipped, onClick }) => {
@@ -9,9 +9,11 @@ const PetCard = ({ image, isFlipped, onClick }) => {
     if (isFlipped) {
       const inner = containerRef.current.querySelector(".pet-card-inner")
       inner.style.transform = "rotateY(180deg)"
+      containerRef.current.style.cursor = "unset"
     } else {
       const inner = containerRef.current.querySelector(".pet-card-inner")
       inner.style.transform = "unset"
+      containerRef.current.style.cursor = "pointer"
     }
   }, [isFlipped])
 
