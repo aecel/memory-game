@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react"
 import style from "./styles/style.css"
 import PetGrid from "./components/PetGrid.js"
-import EndGameModal from "./components/EndGameModal"
-import getInitialGrid from "./getInitialGrid"
+import EndGameModal from "./components/EndGameModal.js"
+import getInitialGrid from "./getInitialGrid.js"
+import grayturtle from "./images/grayturtle.svg"
 
 const App = () => {
-  // const [bestScore, setBestScore] = useState(0)
-
   // Setting up the grid
   // Changeable height and width
   // As long as gridLength is even
@@ -25,10 +24,16 @@ const App = () => {
   const initialGrid = getInitialGrid(petImages, gridLength)
 
   const [grid, setGrid] = useState(initialGrid)
+  // const [bestScore, setBestScore] = useState(0)
   const [currentScore, setCurrentScore] = useState(0)
-  const [lastClickedCards, setLastCLickedCards] = useState([])
-  const [flipCount, setFlipCount] = useState(0)
+  const [lastTwoClickedCards, setLastTwoClickedCards] = useState([])
   const [revealModal, setRevealModal] = useState(false)
+
+  // const link = document.createElement("link")
+  // link.type = "image/x-icon"
+  // link.rel = "shortcut icon"
+  // link.href = "./favicon.ico?"
+  // document.getElementsByTagName("head")[0].appendChild(link)
 
   const flipCard = (index) => {
     const nextGrid = [...grid]
@@ -39,54 +44,53 @@ const App = () => {
   const clickCard = (index) => {
     if (!grid[index].isFlipped) {
       flipCard(index)
-      setFlipCount(flipCount + 1)
 
-      const nextClickedCards = [...lastClickedCards]
+      const nextClickedCards = [...lastTwoClickedCards]
       nextClickedCards.push(grid[index])
-      setLastCLickedCards(nextClickedCards)
+      setLastTwoClickedCards(nextClickedCards)
     }
   }
 
   useEffect(() => {
-    if (flipCount === 2) {
-      setFlipCount(0)
-      if (lastClickedCards[0].image === lastClickedCards[1].image) {
-        setCurrentScore(currentScore + 1)
+    if (lastTwoClickedCards.length === 2) {
+      if (lastTwoClickedCards[0].image === lastTwoClickedCards[1].image) {
+        setTimeout(() => {
+          setCurrentScore(currentScore + 1)
+        }, 600)
       } else {
         setTimeout(() => {
-          flipCard(grid.indexOf(lastClickedCards[0]))
-          flipCard(grid.indexOf(lastClickedCards[1]))
+          flipCard(grid.indexOf(lastTwoClickedCards[0]))
+          flipCard(grid.indexOf(lastTwoClickedCards[1]))
         }, 800)
       }
-      setLastCLickedCards([])
+      setLastTwoClickedCards([])
     }
-
-    console.log(currentScore)
-  }, [flipCount])
+  }, [lastTwoClickedCards])
 
   useEffect(() => {
     if (currentScore === gridLength / 2) {
-      // Congratulations blah blah
+      // Congratulations! You win! ( Play again button )
       setRevealModal(true)
     }
   }, [currentScore])
 
-
-  const refreshPage = () => {
+  const resetGame = () => {
     // window.location.reload()
     setRevealModal(false)
     setGrid(getInitialGrid(petImages, gridLength))
     setCurrentScore(0)
-
   }
+
+  
 
   return (
     <div className="App">
       <header>
-        <h4>Memory Game</h4>
+        <img id="grayturtle" src={grayturtle} alt="A gray turtle" />
+        <h4>Super Auto Pets Memory Game</h4>
       </header>
       <main>
-        <EndGameModal revealModal={revealModal} onClick={refreshPage} />
+        <EndGameModal revealModal={revealModal} onClick={resetGame} />
         <PetGrid
           dimensions={[height, width]}
           grid={grid}

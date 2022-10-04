@@ -36,14 +36,15 @@ header {
   padding: 15px;
   padding-left: 36px;
   padding-right: 36px;
-  background-color: #fff8ebe1;
-  color: var(--dark-gray);
+  /* background-color: #fff8ebe1; */
+  background-color: rgb(27, 27, 27);
+  color: rgb(186, 186, 186);
   font-weight: bold;
   font-size: 1.5rem;
 
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: space-between; */
+  gap: 15px;
 
   box-shadow: var(--shadow);
   z-index: 1;
@@ -85,6 +86,10 @@ main {
   width: 100%;
   box-sizing: border-box;
   padding: 50px;
+  /* background-image: url(../images/night-bg2.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; */
 }
 
 .center-column {
@@ -129,4 +134,9 @@ button:active {
 
 .no-margin-bottom {
   margin-bottom: 0;
+}
+
+#grayturtle {
+  height: 22px;
+  width: auto;
 }

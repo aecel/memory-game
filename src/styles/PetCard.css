@@ -10,7 +10,8 @@
 
 .pet-card-image {
   height: clamp(30px, 60%, 100%);
-  width: clamp(30px, 60%, 100%);
+  /* width: clamp(30px, 60%, 100%); */
+  width: auto;
 }
 
 .pet-card-inner {
@@ -39,6 +40,11 @@
 
 .pet-card-front {
   background-color: rgb(68, 68, 68);
+  background-image: url(../images/day-bg6.png);
+  /* background-image: url(../images/night-bg5.png); */
+  
+  background-size: cover;
+  background-position: right;
 }
 
 .pet-card-back {
@@ -46,7 +52,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../images/night-field-dark.jpg);
+  background-image: url(../images/night-bg5.png);
+  /* background-image: url(../images/day-bg6.png); */
+  
   background-size: cover;
+  background-position: right;
   transform: rotateY(180deg);
 }
