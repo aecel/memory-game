@@ -4,6 +4,7 @@ import PetGrid from "./components/PetGrid.js"
 import getRandomInt from "./getRandomInt.js"
 import uniqueId from "./uniqueId.js"
 import shuffleArray from "./shuffleArray"
+import EndGameModal from "./components/EndGameModal"
 
 const App = () => {
   const [currentScore, setCurrentScore] = useState(0)
@@ -59,21 +60,21 @@ const App = () => {
   const [lastClickedCards, setLastCLickedCards] = useState([])
   const [flipCount, setFlipCount] = useState(0)
 
-  const clickCard = (index, pet) => {
+  const flipCard = (index) => {
+    const nextGrid = [...grid]
+    nextGrid[index].isFlipped = !nextGrid[index].isFlipped
+    setGrid(nextGrid)
+  }
+
+  const clickCard = (index) => {
     if (!grid[index].isFlipped) {
       flipCard(index)
       setFlipCount(flipCount + 1)
 
       const nextClickedCards = [...lastClickedCards]
-      nextClickedCards.push(pet)
+      nextClickedCards.push(grid[index])
       setLastCLickedCards(nextClickedCards)
     }
-  }
-
-  const flipCard = (index) => {
-    const nextGrid = [...grid]
-    nextGrid[index].isFlipped = !nextGrid[index].isFlipped
-    setGrid(nextGrid)
   }
 
   useEffect(() => {
@@ -91,18 +92,28 @@ const App = () => {
     }
 
     console.log(currentScore)
-  }, [flipCount, lastClickedCards])
+  }, [flipCount])
 
   useEffect(() => {
-    if (currentScore === 8) {
+    if (currentScore === gridLength / 2) {
       // Congratulations blah blah
+      setRevealModal(true)
     }
   }, [currentScore])
 
+  const [revealModal, setRevealModal] = useState(false)
+
+  const refreshPage = () => {
+    window.location.reload()
+  }
+
   return (
     <div className="App">
-      <header>Memory Game</header>
+      <header>
+        <h4>Memory Game</h4>
+      </header>
       <main>
+        <EndGameModal revealModal={revealModal} onClick={refreshPage} />
         <PetGrid
           dimensions={[height, width]}
           grid={grid}

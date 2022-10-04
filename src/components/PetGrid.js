@@ -19,7 +19,7 @@ const PetGrid = ({ dimensions, grid, clickCard }) => {
           isFlipped={pet.isFlipped}
           key={pet.id}
           onClick={() => {
-            clickCard(index, pet)
+            clickCard(index)
           }}
         />
       ))}

@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react"
 import PetCardcss from "../styles/PetCard.css"
 
 const PetCard = ({ image, isFlipped, onClick }) => {
-  // const [isFlipped, setIsFlipped] = useState(false)
   const containerRef = useRef()
 
   useEffect(() => {
