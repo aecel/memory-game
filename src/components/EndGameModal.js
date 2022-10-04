@@ -7,6 +7,8 @@ const EndGameModal = ({ revealModal, onClick }) => {
   useEffect(() => {
     if (revealModal) {
       modalRef.current.style.display = "block"
+    } else {
+      modalRef.current.style.display = "none"
     }
   }, [revealModal])
 

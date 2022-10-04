@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react"
 import style from "./styles/style.css"
 import PetGrid from "./components/PetGrid.js"
-import getRandomInt from "./getRandomInt.js"
-import uniqueId from "./uniqueId.js"
-import shuffleArray from "./shuffleArray"
 import EndGameModal from "./components/EndGameModal"
+import getInitialGrid from "./getInitialGrid"
 
 const App = () => {
-  const [currentScore, setCurrentScore] = useState(0)
   // const [bestScore, setBestScore] = useState(0)
 
   // Setting up the grid
@@ -25,40 +22,13 @@ const App = () => {
     require.context("./images/pets/", false, /\.(png|jpe?g|svg)$/)
   )
 
-  // Making an array with random integer pairs
-  // with values below petImages.length
-  // Something like this [4,4,9,9,2,2...]
-  const getPetIntArray = () => {
-    const intArray = []
-
-    for (let i = 0; i < gridLength / 2; i++) {
-      const randomInt = getRandomInt(petImages.length)
-      if (!intArray.includes(randomInt)) {
-        intArray.push(randomInt)
-        intArray.push(randomInt)
-      } else {
-        i--
-      }
-    }
-    return intArray
-  }
-
-  // Shuffle the random pair array
-  const intArray = shuffleArray(getPetIntArray())
-
-  // Setting up the initial grid
-  let initialGrid = []
-  for (let i = 0; i < gridLength; i++) {
-    initialGrid.push({
-      id: uniqueId(),
-      image: petImages[intArray[i]],
-      isFlipped: false,
-    })
-  }
+  const initialGrid = getInitialGrid(petImages, gridLength)
 
   const [grid, setGrid] = useState(initialGrid)
+  const [currentScore, setCurrentScore] = useState(0)
   const [lastClickedCards, setLastCLickedCards] = useState([])
   const [flipCount, setFlipCount] = useState(0)
+  const [revealModal, setRevealModal] = useState(false)
 
   const flipCard = (index) => {
     const nextGrid = [...grid]
@@ -101,10 +71,13 @@ const App = () => {
     }
   }, [currentScore])
 
-  const [revealModal, setRevealModal] = useState(false)
 
   const refreshPage = () => {
-    window.location.reload()
+    // window.location.reload()
+    setRevealModal(false)
+    setGrid(getInitialGrid(petImages, gridLength))
+    setCurrentScore(0)
+
   }
 
   return (
