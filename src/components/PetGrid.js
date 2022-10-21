@@ -1,5 +1,5 @@
 import React from "react"
-import PetGridcss from "../styles/PetGrid.css"
+import "../styles/PetGrid.css"
 import PetCard from "./PetCard.js"
 
 const PetGrid = ({ dimensions, grid, clickCard }) => {

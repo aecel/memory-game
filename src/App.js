@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import style from "./styles/style.css"
+import "./styles/style.css"
 import PetGrid from "./components/PetGrid.js"
 import EndGameModal from "./components/EndGameModal.js"
 import getInitialGrid from "./getInitialGrid.js"

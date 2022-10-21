@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import EndGameModalcss from "../styles/EndGameModal.css"
+import "../styles/EndGameModal.css"
 import party from "party-js"
 
 const EndGameModal = ({ revealModal, onClick }) => {

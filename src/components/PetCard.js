@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import PetCardcss from "../styles/PetCard.css"
+import "../styles/PetCard.css"
 
 const PetCard = ({ image, isFlipped, onClick }) => {
   const containerRef = useRef()
